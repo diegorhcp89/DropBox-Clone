@@ -44,7 +44,7 @@ router.get('/file',(req, res)=>{
 router.delete('/file', (req, res)=>{
 
   let form = new formidable.IncomingForm({
-    uploadDir: './upload',
+    uploadDir: './file',
     keepExtensions: true
   });
 
@@ -52,30 +52,31 @@ router.delete('/file', (req, res)=>{
 
     let path = "./" + fields.path;
 
-    if (fs.existsSync(path)) {
+    if(fs.existsSync(path)){
 
       fs.unlink(path, err=>{
 
-        if (err) {
+        if(err){
 
           res.status(400).json({
             err
           });
-          
-        } else {
+
+        }  else {
 
           res.json({
-            files
+            fields
           });
 
-        }
-
+        }         
       });
 
     } else {
 
       res.status(404).json({
-        error: 'File not found.'
+  
+        error:'File not found.'
+  
       });
   
     }
